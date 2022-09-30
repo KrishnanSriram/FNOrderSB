@@ -42,25 +42,6 @@ public class OrderHandler {
         return ServerResponse.ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(orderService.getAllOrders(), Order.class);
-//                .delayElement(Duration.ofSeconds(1))
-//                .log();
-    }
-
-    @Bean
-    public WebExceptionHandler exceptionHandler() {
-        logger.info("Invoked exception...............");
-        return (ServerWebExchange exchange, Throwable ex) -> {
-            if (ex instanceof OrderException) {
-                logger.info("OrderException fired and handled");
-                exchange.getResponse().setStatusCode(HttpStatus.NOT_FOUND);
-                return exchange.getResponse().setComplete();
-            } else if(ex instanceof NoSuchElementException) {
-                logger.info("NoSuchElementException fired and handled");
-                exchange.getResponse().setStatusCode(HttpStatus.NOT_FOUND);
-                return exchange.getResponse().setComplete();
-            }
-            return Mono.error(ex);
-        };
     }
 
     public Mono<ServerResponse> getOrderById(ServerRequest serverRequest) {

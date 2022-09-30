@@ -1,6 +1,7 @@
 package com.sb.fnhello.service;
 
 import com.sb.fnhello.exceptions.OrderException;
+import com.sb.fnhello.exceptions.OrderException.OrderExceptionType;
 import com.sb.fnhello.model.Order;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -12,6 +13,9 @@ import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static com.sb.fnhello.exceptions.OrderException.CreateException;
+import static com.sb.fnhello.exceptions.OrderException.OrderExceptionType.InvalidOrderFetch;
 
 
 @Service
@@ -40,7 +44,7 @@ public class OrderService {
         Flux<Order> fOrder = Flux.fromIterable(orders);
         return fOrder.filter(ord -> ord.getOrderId() == orderId)
                 .singleOrEmpty()
-                .switchIfEmpty(Mono.error(new OrderException(orderId)));
+                .switchIfEmpty(Mono.error(CreateException(InvalidOrderFetch, String.valueOf(orderId))));
     }
 
     public Mono<Order> addOrder(Order newOrder) {

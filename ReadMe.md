@@ -1,6 +1,6 @@
-#Reactive Webflux
+# Reactive Webflux
 Reactive programming has been quite popular in recent times and for a good reason. With Webflux we can now have event loop kind of an execution in Springboot world
-###What is Reactive stream?
+### What is Reactive stream?
 It's an initiative to provide a standard for asynchronous stream processing with non-blocking back pressure.
 There are 4 important concepts to program on Reactive streams
 - Publisher
@@ -8,12 +8,12 @@ There are 4 important concepts to program on Reactive streams
 - Subscription
 - Processor
 
-###What is Reactor?
+### What is Reactor?
 Reactor is the default Reactive stream implmentation supported in Spring Webflux. There are couple of reactive types we should be familiar with
 - Mono
 - Flux
 
-####What Spring webflux brings to the table?
+#### What Spring webflux brings to the table?
 The Spring embraces Reactive Streams in the new 5.x era
 
 For Spring developers, it brings a complete new programming model.

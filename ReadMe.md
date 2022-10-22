@@ -171,10 +171,28 @@ As one'd expect we have autowired service component and like controller, handler
 getOrderById accepts an orderID in ServerRequest, fetches it from service. If the order is not found, it handles the error from service and returns not found error. If we wish to return a DTO error object, this is the place for it.
 addOrder method, accepts a DTO object, in this case a simple order. We first extract order object from ServerRequest with bodyToMono method. This is then validated for errors and then passed over to service for persistence. As you can see every step is synchronous and processed in reactive fashion. Any change to this approach will break the behavior of service.
 
-Here's a router
+#### Router
 
-Wait how about errors?
+Router receives the request and redirects it to handler.
 
-And that's it. In my future articles, let's connect it to a datastore like Cassandra and see how it works?
+```
+public class OrderRouter {
+    @Autowired
+    private OrderHandler orderHandler;
 
-As always thanks for your time. Stay well
+    @Bean
+    public RouterFunction<ServerResponse> orderRoutes() {
+        return RouterFunctions
+                .route(RequestPredicates.GET("/api/orders"), orderHandler::getAllOrders)
+                .andRoute(RequestPredicates.GET("/api/orders/{orderId}"), orderHandler::getOrderById)
+                .andRoute(RequestPredicates.POST("/api/orders"), orderHandler::addOrder);
+    }
+}
+```
+
+#### Error Handlers and Validators
+
+These are the same as in the past. No changes needed. You can check it out in repository
+
+That's it for this article. In my future articles, let's connect it to a datastore like Cassandra and webflux works end to end.
+As always, thanks for your time.

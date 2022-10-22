@@ -167,7 +167,9 @@ public class OrderHandler {
 }
 ```
 
-There's not much in the model zone for this
+As one'd expect we have autowired service component and like controller, handler is marked with component annotation. In a turn of events, getAllOrders returns a Mono when you'd have thought it should've been Flux. Handler invoked getAllOrders from a service, we get a Flux of orders, package it into ServerReponse a singluar object containing iterable orders. ServerResponse.ok() will return a 200 status.
+getOrderById accepts an orderID in ServerRequest, fetches it from service. If the order is not found, it handles the error from service and returns not found error. If we wish to return a DTO error object, this is the place for it.
+addOrder method, accepts a DTO object, in this case a simple order. We first extract order object from ServerRequest with bodyToMono method. This is then validated for errors and then passed over to service for persistence. As you can see every step is synchronous and processed in reactive fashion. Any change to this approach will break the behavior of service.
 
 Here's a router
 

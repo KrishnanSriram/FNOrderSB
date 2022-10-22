@@ -1,6 +1,5 @@
 package com.sb.fnhello.handler;
 
-import com.sb.fnhello.exceptions.OrderException;
 import com.sb.fnhello.model.Order;
 import com.sb.fnhello.model.OrderError;
 import com.sb.fnhello.service.OrderService;
@@ -8,7 +7,6 @@ import com.sb.fnhello.validator.OrderValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -17,16 +15,9 @@ import org.springframework.validation.Errors;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.server.ServerRequest;
 import org.springframework.web.reactive.function.server.ServerResponse;
-import org.springframework.web.server.ServerWebExchange;
 import org.springframework.web.server.ServerWebInputException;
-import org.springframework.web.server.WebExceptionHandler;
 import reactor.core.publisher.Mono;
-
 import java.net.URI;
-import java.util.NoSuchElementException;
-import java.util.concurrent.atomic.AtomicReference;
-
-import static org.springframework.web.reactive.function.BodyInserters.fromObject;
 
 @Component
 public class OrderHandler {

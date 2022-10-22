@@ -29,7 +29,7 @@ public class OrderService {
         orders = new ArrayList<Order>();
         Order[] initialOrders = {
                 new Order(1L, "Bat", 4, 400.0f),
-                new Order(2L, "Ball", 10, 25F)
+                new Order(3L, "Ball", 10, 25F)
         };
         orders.addAll(Arrays.asList(initialOrders));
     }
